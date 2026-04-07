@@ -1,8 +1,8 @@
 version: "3"
 
 vars:
-  DOCKER_REGISTRY: ghcr.io/vxblocks/neptune-explorer-backend
-  GIT_REPO: https://github.com/VxBlocks/zulu-explorer_backend
+  DOCKER_REGISTRY: ghcr.io/sword-smith/vxb-neptune-explorer
+  GIT_REPO: https://github.com/sword-smith/vxb-neptune-explorer
 dotenv:
   - ".env"
 interval: "500ms"

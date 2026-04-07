@@ -22,7 +22,7 @@ yarn install
 copy .env.example to .env.local
 # update .env.local
 
-yarn dev
+PORT=3001 yarn dev
 
 ```
 

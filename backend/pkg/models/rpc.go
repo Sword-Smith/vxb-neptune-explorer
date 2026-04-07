@@ -54,7 +54,8 @@ func (n *NeptuneClient) GetBlockByHeight(ctx context.Context, height int64) (*RP
 
 func (n *NeptuneClient) GetBlockByHash(ctx context.Context, height_or_hash string) (*RPCBlock, error) {
 	var block *RPCBlock
-	err := n.client.Call(ctx, "/rpc/block_info/height_or_digest/"+height_or_hash, &block)
+
+	err := n.client.Call(ctx, "archival", "get_block", &block, [height_or_hash])
 	if err != nil {
 		if err.Error() == "status code: 404" {
 			return nil, nil
@@ -66,7 +67,7 @@ func (n *NeptuneClient) GetBlockByHash(ctx context.Context, height_or_hash strin
 
 func (n *NeptuneClient) GetCurrentBlock(ctx context.Context) (*RPCBlock, error) {
 	var block *RPCBlock
-	err := n.client.Call(ctx, "/rpc/block_info/tip", &block)
+	err := n.client.Call(ctx, "chain", "tip" &block, [])
 	if err != nil {
 		if err.Error() == "status code: 404" {
 			return nil, nil
@@ -77,8 +78,9 @@ func (n *NeptuneClient) GetCurrentBlock(ctx context.Context) (*RPCBlock, error) 
 }
 
 func (n *NeptuneClient) GetUtxoDigest(ctx context.Context, index int64) (string, error) {
+	// UTXO digest := addition record
 	var digest string
-	err := n.client.Call(ctx, "/rpc/utxo_digest/"+strconv.FormatInt(index, 10), &digest)
+	err := n.client.Call(ctx, "archival", "getUtxoDigest", &digest, [strconv.FormatInt(index, 10)])
 	if err != nil {
 		if err.Error() == "status code: 404" {
 			return digest, nil

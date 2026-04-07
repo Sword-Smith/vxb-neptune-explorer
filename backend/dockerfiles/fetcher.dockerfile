@@ -1,7 +1,8 @@
 FROM golang:1.24.0 AS gobuilder
 WORKDIR /usr/src/app
 RUN go env -w GOCACHE=/go-cache
-RUN go env -w GOPROXY=https://goproxy.io,direct
+# RUN go env -w GOPROXY=https://goproxy.io,direct
+RUN go env -w GOPROXY=https://proxy.golang.org,direct
 COPY . .
 RUN --mount=type=cache,target=/go-cache --mount=type=cache,target=/go/pkg/mod go build -ldflags="-s -w" -o /usr/local/bin/app fetcher
 
